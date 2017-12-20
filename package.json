@@ -1,0 +1,21 @@
+{
+  "name": "sharelocation-sockets",
+  "version": "1.0.0",
+  "description": "Server using Socket.io to share location with android client between two users",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "socket"
+  ],
+  "author": "krsnvijay",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  },
+  "engines": {
+    "node": "6.11.2"
+  }
+}

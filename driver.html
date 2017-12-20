@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Driver Share Location</title>
+</head>
+<body>
+    <h1>Driver</h1>
+    
+    <h2>My Locations</h2>
+    <ul id="location_driver"></ul>
+    <h2>User's Locations</h2>
+    <ul id="location_user"></ul>
+    <form action="" >
+        <input type="number" step="any" name="latitude" id="lat" placeholder="Enter Latitude"/>
+        <input type="number" step="any" name="longitude" id="lng" placeholder="Enter longitude"/>
+        <button>Send</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+        var socket = io();
+        $('form').submit(function(){
+            var location={lat:$('#lat').val(),lng:$('#lng').val()};
+            console.log(location);
+          socket.emit('send_driver_location', location);
+          $('#lat').val('');
+          $('#lng').val('');
+          return false;
+        });
+        socket.on('receive_user_location', function(msg){
+          $('#location_user').append($('<li>').text(msg.lat+","+msg.lng));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+        
+        socket.on('receive_driver_location', function(msg){
+          $('#location_driver').append($('<li>').text(msg.lat+","+msg.lng));
+          window.scrollTo(0, document.body.scrollHeight);
+        });
+      });
+    </script>
+
+</body>
+</html>
